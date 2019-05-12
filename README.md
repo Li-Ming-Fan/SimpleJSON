@@ -85,3 +85,15 @@ loaded
 
 ```
 
+and the lines in the file ./test.json
+
+```
+{
+    "sub_dict": {"a": 1, "b": 2.0, "c": "relu"},
+    "num_batch_split": [12, 20],
+    "model_tag": "cnn",
+    "mat_shape": (12, 20),
+    "is_train": 0
+}
+
+```

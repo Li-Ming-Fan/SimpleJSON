@@ -17,7 +17,7 @@ import java.util.Stack;
  */
 public class SimpleJSON
 {
-	//
+	// transform, dump
 	public static String trimQuotationMasks(String str)
 	{
 		if (str.startsWith("\""))
@@ -130,7 +130,7 @@ public class SimpleJSON
 	//
 	
 	// load json file
-	public static HashMap<String, String> loadJSONFromFile(String filepath)
+	public static HashMap<String, String> loadFromFile(String filepath)
 	{
 		StringBuilder str_all = new StringBuilder();
 		//
@@ -166,6 +166,7 @@ public class SimpleJSON
 			System.out.println(key_wrapped + ": " + value_wrapped);
 		}
 	}
+	//
 	
 	//
 	// dict, could be nested
@@ -293,7 +294,7 @@ public class SimpleJSON
         return positions;
     }
 	//
-	public static HashMap<Integer, Integer> getBraketPositions(String str)
+	private static HashMap<Integer, Integer> getBraketPositions(String str)
 	{
 		// not incorporate the root pair
 		Integer len_str = str.length();
@@ -319,7 +320,7 @@ public class SimpleJSON
 		
 		return posi_type;		
 	}
-	public static HashMap<Integer, Integer> getOuterBrakets(HashMap<Integer, Integer> posi_type)
+	private static HashMap<Integer, Integer> getOuterBrakets(HashMap<Integer, Integer> posi_type)
 	{
 		List<Integer> positions = new ArrayList<>();
 		positions.addAll(posi_type.keySet());	
@@ -476,7 +477,7 @@ public class SimpleJSON
 		System.out.println("saved");
 		
 		//
-		HashMap<String, String> dict_load = SimpleJSON.loadJSONFromFile(filepath);
+		HashMap<String, String> dict_load = SimpleJSON.loadFromFile(filepath);
 		System.out.println("loaded");
 		
 		SimpleJSON.diaplay(dict_load);
@@ -488,4 +489,6 @@ public class SimpleJSON
 	{
 		test();		
 	}
+	//
+	
 }

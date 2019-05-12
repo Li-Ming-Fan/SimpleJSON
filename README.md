@@ -9,10 +9,13 @@ public static void test()
 {
 	HashMap<String, String> dict_test = new HashMap<>();
 	dict_test.put("model_tag", "cnn");
-	dict_test.put("is_train", "0");
+	dict_test.put("is_train", "true");
+	dict_test.put("sep_tag", "05A");
+	dict_test.put("lr_base", "0.001");
+	dict_test.put("batch_size", "32");
 	dict_test.put("num_batch_split", "[12, 20]");
 	dict_test.put("mat_shape", "(12, 20)");
-	dict_test.put("sub_dict", "{\"a\": 1, \"b\": 2.0, \"c\": \"relu\"}");
+	dict_test.put("sub_dict", "{\"a\": -1, \"b\": -2.0, \"c\": \"relu\"}");
 
 	// display
 	SimpleJSON.diaplay(dict_test);
@@ -57,43 +60,49 @@ public static void test()
 Running the above function will lead to the result:
 
 ```
-
-"sub_dict": {"a": 1, "b": 2.0, "c": "relu"}
+"sub_dict": {"a": -1, "b": -2.0, "c": "relu"}
+"batch_size": 32
 "num_batch_split": [12, 20]
+"sep_tag": "05A"
+"lr_base": 0.001
 "model_tag": "cnn"
 "mat_shape": (12, 20)
-"is_train": 0
+"is_train": true
 
-{"sub_dict": {"a": 1, "b": 2.0, "c": "relu"}, "num_batch_split": [12, 20], "model_tag": "cnn", "mat_shape": (12, 20), "is_train": 0}
+{"sub_dict": {"a": -1, "b": -2.0, "c": "relu"}, "batch_size": 32, "num_batch_split": [12, 20], "sep_tag": "05A", "lr_base": 0.001, "model_tag": "cnn", "mat_shape": (12, 20), "is_train": true}
 
 saved
 loaded
-"sub_dict": {"a": 1, "b": 2.0, "c": "relu"}
+"sub_dict": {"a": -1, "b": -2.0, "c": "relu"}
+"batch_size": 32
 "num_batch_split": [12, 20]
+"sep_tag": "05A"
+"lr_base": 0.001
 "model_tag": "cnn"
 "mat_shape": (12, 20)
-"is_train": 0
+"is_train": true
 
-{"a": 1, "b": 2.0, "c": "relu"}
-"a": 1
-"b": 2.0
+{"a": -1, "b": -2.0, "c": "relu"}
+"a": -1
+"b": -2.0
 "c": "relu"
 
 [12, 20]
 0: 12
 1: 20
-
 ```
 
 and the lines in the file ./test.json
 
 ```
 {
-    "sub_dict": {"a": 1, "b": 2.0, "c": "relu"},
+    "sub_dict": {"a": -1, "b": -2.0, "c": "relu"},
+    "batch_size": 32,
     "num_batch_split": [12, 20],
+    "sep_tag": "05A",
+    "lr_base": 0.001,
     "model_tag": "cnn",
     "mat_shape": (12, 20),
-    "is_train": 0
+    "is_train": true
 }
-
 ```

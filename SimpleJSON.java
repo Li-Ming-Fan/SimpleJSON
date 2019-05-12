@@ -67,7 +67,10 @@ public class SimpleJSON
 		}
 		else
 		{
-			return "\""+str+"\"";
+			StringBuilder sb = new StringBuilder("\"");
+			sb.append(str);
+			sb.append("\"");
+			return sb.toString();
 		}
 	}
 	//
@@ -251,13 +254,15 @@ public class SimpleJSON
 	//
 	
 	//
-	// dict, not nested, basic type elements: int, float, str
+	// dict, not nested, basic type elements: int, float, str, must be trimmed
 	public static HashMap<String, String> parseDictNotNested(String str_not_nested)
 	{
 		// replace the root "{" and "}"
-		str_not_nested = str_not_nested.replace("{", "").replace("}", "");
+		StringBuilder sb = new StringBuilder(str_not_nested);
+		sb.setCharAt(0, ' ');
+		sb.setCharAt(str_not_nested.length() - 1, ' ');
 		// split
-		String [] str_arr = str_not_nested.split(",");
+		String [] str_arr = sb.toString().split(",");
 		// parse
 		HashMap<String, String> result = new HashMap<>();
 		for (String item : str_arr)
@@ -270,13 +275,15 @@ public class SimpleJSON
 		return result;	
 	}
 	//
-	// list, not nested, basic type elements: int, float, str
+	// list, not nested, basic type elements: int, float, str, must be trimmed
 	public static HashMap<Integer, String> parseListNotNested(String str_not_nested)
 	{
 		// replace the root "[" and "]"
-		str_not_nested = str_not_nested.replace("[", "").replace("]", "");
+		StringBuilder sb = new StringBuilder(str_not_nested);
+		sb.setCharAt(0, ' ');
+		sb.setCharAt(str_not_nested.length() - 1, ' ');
 		// split
-		String [] str_arr = str_not_nested.split(",");
+		String [] str_arr = sb.toString().split(",");
 		Integer num_items = str_arr.length;
 		// parse
 		HashMap<Integer, String> result = new HashMap<>();
@@ -287,13 +294,15 @@ public class SimpleJSON
 		return result;	
 	}
 	//
-	// tuple, not nested, basic type elements: int, float, str
+	// tuple, not nested, basic type elements: int, float, str, must be trimmed
 	public static HashMap<Integer, String> parseTupleNotNested(String str_not_nested)
 	{
 		// replace the root "(" and ")"
-		str_not_nested = str_not_nested.replace("(", "").replace(")", "");
+		StringBuilder sb = new StringBuilder(str_not_nested);
+		sb.setCharAt(0, ' ');
+		sb.setCharAt(str_not_nested.length() - 1, ' ');
 		// split
-		String [] str_arr = str_not_nested.split(",");
+		String [] str_arr = sb.toString().split(",");
 		Integer num_items = str_arr.length;
 		// parse
 		HashMap<Integer, String> result = new HashMap<>();
@@ -324,7 +333,10 @@ public class SimpleJSON
 	{
 		// not incorporate the root pair
 		Integer len_str = str.length();
-		String str_trim = "L" + str.substring(1, len_str-1) + "R";
+		StringBuilder sb = new StringBuilder(str);
+		sb.setCharAt(0, 'L');
+		sb.setCharAt(len_str-1, 'R');
+		String str_trim = sb.toString();
 		
 		List<Integer> posi_arc_left = SimpleJSON.findPositionsOfSubstring(str_trim, "(");
 		List<Integer> posi_square_left = SimpleJSON.findPositionsOfSubstring(str_trim, "[");
@@ -415,73 +427,65 @@ public class SimpleJSON
 	//
 	private static HashMap<String, String> replaceDictRawParsed(HashMap<String, String> result_raw, HashMap<String, String> replacement)
 	{
-		HashMap<String, String> result = new HashMap<>();
-		
+		if (replacement.size() == 0)
+		{
+			return result_raw;
+		}
+		//
 		for (String key : result_raw.keySet())
 		{
 			String value = result_raw.get(key);
-			//
-			if (replacement.size() == 0)
-			{
-				result.put(key, value);
-				continue;				
-			}
-			//
-			int flag_replaced = 0;
 			for (String str_rep : replacement.keySet())
 			{
 				if (value.contains(str_rep))
 				{
 					value = value.replaceAll(str_rep, replacement.get(str_rep));
-					result.put(key, value);
-					flag_replaced = 1;
+					result_raw.put(key, value);
 					replacement.remove(str_rep);
-					break;
+					//
+					if (replacement.size() == 0)
+					{
+						return result_raw;
+					}
+					else
+					{
+						break;
+					}
 				}
 			}
-			//
-			if (flag_replaced == 0)
-			{
-				result.put(key, value);				
-			}
 		}
-		
-		return result;	
+		return result_raw;	
 	}
 	private static HashMap<Integer, String> replaceListTupleRawParsed(HashMap<Integer, String> result_raw, HashMap<String, String> replacement)
 	{
-		HashMap<Integer, String> result = new HashMap<>();
-		
+		if (replacement.size() == 0)
+		{
+			return result_raw;
+		}
+		//
 		for (Integer key : result_raw.keySet())
 		{
 			String value = result_raw.get(key);
-			//
-			if (replacement.size() == 0)
-			{
-				result.put(key, value);
-				continue;
-			}
-			//
-			int flag_replaced = 0;
 			for (String str_rep : replacement.keySet())
 			{
 				if (value.contains(str_rep))
 				{
 					value = value.replaceAll(str_rep, replacement.get(str_rep));
-					result.put(key, value);
-					flag_replaced = 1;
+					result_raw.put(key, value);
 					replacement.remove(str_rep);
-					break;
+					//
+					if (replacement.size() == 0)
+					{
+						return result_raw;
+					}
+					else
+					{
+						break;
+					}
 				}
 			}
-			//
-			if (flag_replaced == 0)
-			{
-				result.put(key, value);				
-			}
 		}
-		
-		return result;	
+		return result_raw;	
 	}
 	//
 	

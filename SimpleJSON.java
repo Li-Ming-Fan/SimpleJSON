@@ -396,13 +396,12 @@ public class SimpleJSON
 		StringBuilder result = new StringBuilder();
 		Integer posi_last = 0;
 		Integer count = 0;
-		String RepTemp = "replaced_temp";
 		
 		List<Integer> posi_left_all = new ArrayList<>();
 		posi_left_all.addAll(outer_pairs.keySet());
 		Integer num_pairs = posi_left_all.size();
 		
-		Collections.sort(posi_left_all); //榛樿鎺掑簭(浠庡皬鍒板ぇ)    // Collections.reverse(list_int_str_basic);//鍊掑彊(浠庡ぇ鍒板皬)
+		Collections.sort(posi_left_all);  // 默认排序(从小到大)    // Collections.reverse(list_int_str_basic);  // 倒排序(从大到小)
 		
 		for (int idx = 0; idx < num_pairs; idx++)
 		{
@@ -411,7 +410,7 @@ public class SimpleJSON
 			
 			result.append(str.substring(posi_last, posi_left));
 			
-			String str_rep = RepTemp.replace("temp", "" + count);
+			String str_rep = "replaced_" + count;
 			result.append(str_rep);
 			
 			replacement.put(str_rep, str.substring(posi_left, posi_right_m1));

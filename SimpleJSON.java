@@ -1,3 +1,27 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2019 Ming-Fan Li
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 package SimpleJSON;
 
 import java.io.BufferedReader;
@@ -12,9 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
-/*
- * created by Ming-Fan Li, 2019-05-11.
- */
+
 public class SimpleJSON
 {
 	// transform, dump
@@ -330,7 +352,7 @@ public class SimpleJSON
 		positions.addAll(posi_type.keySet());	
 		Integer num_posi = positions.size();
 		
-		Collections.sort(positions); //默认排序(从小到大)    // Collections.reverse(list_int_str_basic);//倒叙(从大到小)
+		Collections.sort(positions); //榛樿鎺掑簭(浠庡皬鍒板ぇ)    // Collections.reverse(list_int_str_basic);//鍊掑彊(浠庡ぇ鍒板皬)
 		
 		HashMap<Integer, Integer> result_pairs = new HashMap<>();
 		
@@ -368,7 +390,7 @@ public class SimpleJSON
 		posi_left_all.addAll(outer_pairs.keySet());
 		Integer num_pairs = posi_left_all.size();
 		
-		Collections.sort(posi_left_all); //默认排序(从小到大)    // Collections.reverse(list_int_str_basic);//倒叙(从大到小)
+		Collections.sort(posi_left_all); //榛樿鎺掑簭(浠庡皬鍒板ぇ)    // Collections.reverse(list_int_str_basic);//鍊掑彊(浠庡ぇ鍒板皬)
 		
 		for (int idx = 0; idx < num_pairs; idx++)
 		{

@@ -31,7 +31,11 @@ public class SimpleJSON
 	}
 	public static String wrapWithQuotationMasks(String str)
 	{
-		if (str.matches("^[0-9][0-9.]*"))   // int, float
+		if (str.matches("^[-0-9][0-9.]*"))   // int, float
+		{
+			return str;
+		}
+		else if (str.equals("true") || str.equals("false") || str.equals("null"))  // bool, None
 		{
 			return str;
 		}
@@ -149,7 +153,7 @@ public class SimpleJSON
 		}
 		catch (IOException ioe)
 		{
-		} // try SystemRecord.tx
+		}
 		//
 		HashMap<String, String> dict_load = SimpleJSON.parseDictAsStringToString(str_all.toString());
 		return dict_load;		
@@ -281,7 +285,7 @@ public class SimpleJSON
 	
 	// parse procedure for nested dict, list, tuple,
 	public static List<Integer> findPositionsOfSubstring(String parent, String child)
-    {
+	{
 		int len_child = child.length();
 		
         List<Integer> positions = new ArrayList<>();
@@ -464,10 +468,13 @@ public class SimpleJSON
 	{
 		HashMap<String, String> dict_test = new HashMap<>();
 		dict_test.put("model_tag", "cnn");
-		dict_test.put("is_train", "0");
+		dict_test.put("is_train", "true");
+		dict_test.put("sep_tag", "05A");
+		dict_test.put("lr_base", "0.001");
+		dict_test.put("batch_size", "32");
 		dict_test.put("num_batch_split", "[12, 20]");
 		dict_test.put("mat_shape", "(12, 20)");
-		dict_test.put("sub_dict", "{\"a\": 1, \"b\": 2.0, \"c\": \"relu\"}");
+		dict_test.put("sub_dict", "{\"a\": -1, \"b\": -2.0, \"c\": \"relu\"}");
 		
 		// display
 		SimpleJSON.diaplay(dict_test);

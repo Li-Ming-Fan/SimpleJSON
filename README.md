@@ -1,5 +1,5 @@
 # SimpleJSON
-Simple JSON loader and saver, JAVA
+Simple JSON parser, loader and saver, JAVA
 
 ## Usage
 

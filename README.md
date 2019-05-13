@@ -14,7 +14,7 @@ public static void test()
 	dict_test.put("lr_base", "0.001");
 	dict_test.put("batch_size", "32");
 	dict_test.put("num_batch_split", "[12, 20]");
-	dict_test.put("mat_shape", "(12, 20)");
+	dict_test.put("sub_tuple", "[12, \"str\"]");
 	dict_test.put("sub_dict", "{\"a\": -1, \"b\": -2.0, \"c\": \"relu\"}");
 
 	// display
@@ -64,12 +64,12 @@ Running the above function will lead to the result:
 "batch_size": 32
 "num_batch_split": [12, 20]
 "sep_tag": "05A"
+"sub_tuple": [12, "str"]
 "lr_base": 0.001
 "model_tag": "cnn"
-"mat_shape": (12, 20)
 "is_train": true
 
-{"sub_dict": {"a": -1, "b": -2.0, "c": "relu"}, "batch_size": 32, "num_batch_split": [12, 20], "sep_tag": "05A", "lr_base": 0.001, "model_tag": "cnn", "mat_shape": (12, 20), "is_train": true}
+{"sub_dict": {"a": -1, "b": -2.0, "c": "relu"}, "batch_size": 32, "num_batch_split": [12, 20], "sep_tag": "05A", "sub_tuple": [12, "str"], "lr_base": 0.001, "model_tag": "cnn", "is_train": true}
 
 saved
 loaded
@@ -77,9 +77,9 @@ loaded
 "batch_size": 32
 "num_batch_split": [12, 20]
 "sep_tag": "05A"
+"sub_tuple": [12, "str"]
 "lr_base": 0.001
 "model_tag": "cnn"
-"mat_shape": (12, 20)
 "is_train": true
 
 {"a": -1, "b": -2.0, "c": "relu"}
@@ -100,9 +100,9 @@ and the lines in the file ./test.json
     "batch_size": 32,
     "num_batch_split": [12, 20],
     "sep_tag": "05A",
+    "sub_tuple": [12, "str"],
     "lr_base": 0.001,
     "model_tag": "cnn",
-    "mat_shape": (12, 20),
     "is_train": true
 }
 ```

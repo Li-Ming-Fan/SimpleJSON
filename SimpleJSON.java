@@ -61,7 +61,7 @@ public class SimpleJSON
 		{
 			return str;
 		}
-		else if (str.startsWith("[") || str.startsWith("(") || str.startsWith("{")) // list, tuple, dict
+		else if (str.startsWith("[") || str.startsWith("{")) // list, dict,  // tuple, saved as list in JSON-file
 		{
 			return str;
 		}
@@ -229,28 +229,12 @@ public class SimpleJSON
 		
 		HashMap<Integer, String> result = new HashMap<>();
 		result = SimpleJSON.parseListNotNested(str_replaced);
-		result = SimpleJSON.replaceListTupleRawParsed(result, replacement);
+		result = SimpleJSON.replaceListRawParsed(result, replacement);
 
 		return result;
 	}	
 	//
-	// tuple, could be nested
-	public static HashMap<Integer, String> parseTupleAsIntegerToString(String str)
-	{
-		str = str.trim();
-		
-		HashMap<Integer, Integer> posi_type = SimpleJSON.getBraketPositions(str);
-		HashMap<Integer, Integer> outer_pairs = SimpleJSON.getOuterBrakets(posi_type);
-		
-		HashMap<String, String> replacement = new HashMap<>();
-		String str_replaced =  SimpleJSON.replaceOuterItems(str, outer_pairs, replacement);
-		
-		HashMap<Integer, String> result = new HashMap<>();
-		result = SimpleJSON.parseTupleNotNested(str_replaced);
-		result = SimpleJSON.replaceListTupleRawParsed(result, replacement);
-
-		return result;
-	}	
+	// tuple, saved as list in JSON-file
 	//
 	
 	//
@@ -294,25 +278,6 @@ public class SimpleJSON
 		return result;	
 	}
 	//
-	// tuple, not nested, basic type elements: int, float, str, must be trimmed
-	public static HashMap<Integer, String> parseTupleNotNested(String str_not_nested)
-	{
-		// replace the root "(" and ")"
-		StringBuilder sb = new StringBuilder(str_not_nested);
-		sb.setCharAt(0, ' ');
-		sb.setCharAt(str_not_nested.length() - 1, ' ');
-		// split
-		String [] str_arr = sb.toString().split(",");
-		Integer num_items = str_arr.length;
-		// parse
-		HashMap<Integer, String> result = new HashMap<>();
-		for (Integer idx = 0; idx < num_items; idx++)
-		{
-			result.put(idx, SimpleJSON.trimQuotationMasks(str_arr[idx].trim()));
-		}
-		return result;	
-	}
-	//
 	
 	// parse procedure for nested dict, list, tuple,
 	public static List<Integer> findPositionsOfSubstring(String parent, String child)
@@ -338,21 +303,21 @@ public class SimpleJSON
 		sb.setCharAt(len_str-1, 'R');
 		String str_trim = sb.toString();
 		
-		List<Integer> posi_arc_left = SimpleJSON.findPositionsOfSubstring(str_trim, "(");
+		//List<Integer> posi_arc_left = SimpleJSON.findPositionsOfSubstring(str_trim, "(");
 		List<Integer> posi_square_left = SimpleJSON.findPositionsOfSubstring(str_trim, "[");
 		List<Integer> posi_curly_left = SimpleJSON.findPositionsOfSubstring(str_trim, "{");
 		
-		List<Integer> posi_arc_right = SimpleJSON.findPositionsOfSubstring(str_trim, ")");
+		//List<Integer> posi_arc_right = SimpleJSON.findPositionsOfSubstring(str_trim, ")");
 		List<Integer> posi_square_right = SimpleJSON.findPositionsOfSubstring(str_trim, "]");
 		List<Integer> posi_curly_right = SimpleJSON.findPositionsOfSubstring(str_trim, "}");
 		
 		//
 		HashMap<Integer, Integer> posi_type = new HashMap<>();
-		for (Integer posi : posi_arc_left) posi_type.put(posi, 0);
+		//for (Integer posi : posi_arc_left) posi_type.put(posi, 0);
 		for (Integer posi : posi_square_left) posi_type.put(posi, 0);
 		for (Integer posi : posi_curly_left) posi_type.put(posi, 0);
 		
-		for (Integer posi : posi_arc_right) posi_type.put(posi, 1);
+		//for (Integer posi : posi_arc_right) posi_type.put(posi, 1);
 		for (Integer posi : posi_square_right) posi_type.put(posi, 1);
 		for (Integer posi : posi_curly_right) posi_type.put(posi, 1);
 		
@@ -455,7 +420,7 @@ public class SimpleJSON
 		}
 		return result_raw;	
 	}
-	private static HashMap<Integer, String> replaceListTupleRawParsed(HashMap<Integer, String> result_raw, HashMap<String, String> replacement)
+	private static HashMap<Integer, String> replaceListRawParsed(HashMap<Integer, String> result_raw, HashMap<String, String> replacement)
 	{
 		if (replacement.size() == 0)
 		{
@@ -498,7 +463,7 @@ public class SimpleJSON
 		dict_test.put("lr_base", "0.001");
 		dict_test.put("batch_size", "32");
 		dict_test.put("num_batch_split", "[12, 20]");
-		dict_test.put("mat_shape", "(12, 20)");
+		dict_test.put("sub_tuple", "[12, \"str\"]");
 		dict_test.put("sub_dict", "{\"a\": -1, \"b\": -2.0, \"c\": \"relu\"}");
 		
 		// display

@@ -40,7 +40,7 @@ import java.util.Stack;
 public class SimpleJSON
 {
 	// transform, dump
-	public static String trimQuotationMasks(String str)
+	public static String trimQuotationMarks(String str)
 	{
 		if (str.startsWith("\""))
 		{
@@ -51,7 +51,7 @@ public class SimpleJSON
 			return str;
 		}
 	}
-	public static String wrapWithQuotationMasks(String str)
+	public static String wrapWithQuotationMarks(String str)
 	{
 		if (str.matches("^[-0-9][0-9.]*"))   // int, float
 		{
@@ -91,9 +91,9 @@ public class SimpleJSON
 			String key = keys.get(0);
 			// System.out.println(key);
 			sb.append(indent_str);
-			sb.append(wrapWithQuotationMasks(key));
+			sb.append(wrapWithQuotationMarks(key));
 			sb.append(": ");
-			sb.append(wrapWithQuotationMasks(dict.get(key)));
+			sb.append(wrapWithQuotationMarks(dict.get(key)));
 			//
 			for (int idx = 1; idx < num_attr; idx++)
 			{
@@ -102,9 +102,9 @@ public class SimpleJSON
 				//
 				sb.append(",\n");
 				sb.append(indent_str);
-				sb.append(wrapWithQuotationMasks(key));
+				sb.append(wrapWithQuotationMarks(key));
 				sb.append(": ");
-				sb.append(wrapWithQuotationMasks(dict.get(key)));
+				sb.append(wrapWithQuotationMarks(dict.get(key)));
 	        }
 			sb.append("\n");			
 		}
@@ -112,18 +112,18 @@ public class SimpleJSON
 		{
 			String key = keys.get(0);
 			// System.out.println(key);
-			sb.append(wrapWithQuotationMasks(key));
+			sb.append(wrapWithQuotationMarks(key));
 			sb.append(": ");
-			sb.append(wrapWithQuotationMasks(dict.get(key)));
+			sb.append(wrapWithQuotationMarks(dict.get(key)));
 			//
 			for (int idx = 1; idx < num_attr; idx++)
 			{
 				key = keys.get(idx);
 				// System.out.println(key);
 				sb.append(", ");
-				sb.append(wrapWithQuotationMasks(key));
+				sb.append(wrapWithQuotationMarks(key));
 				sb.append(": ");
-				sb.append(wrapWithQuotationMasks(dict.get(key)));
+				sb.append(wrapWithQuotationMarks(dict.get(key)));
 	        }
 		}
 		sb.append("}");
@@ -190,8 +190,8 @@ public class SimpleJSON
 	{
 		for (String key : dict_map.keySet())
 		{
-			String key_wrapped = SimpleJSON.wrapWithQuotationMasks(key);
-			String value_wrapped = SimpleJSON.wrapWithQuotationMasks(dict_map.get(key));
+			String key_wrapped = SimpleJSON.wrapWithQuotationMarks(key);
+			String value_wrapped = SimpleJSON.wrapWithQuotationMarks(dict_map.get(key));
 			System.out.println(key_wrapped + ": " + value_wrapped);
 		}
 	}
@@ -252,8 +252,8 @@ public class SimpleJSON
 		for (String item : str_arr)
 		{
 			String [] item_kv = item.split(":");
-			String key = SimpleJSON.trimQuotationMasks(item_kv[0].trim());
-			String value = SimpleJSON.trimQuotationMasks(item_kv[1].trim());
+			String key = SimpleJSON.trimQuotationMarks(item_kv[0].trim());
+			String value = SimpleJSON.trimQuotationMarks(item_kv[1].trim());
 			result.put(key, value);
 		}
 		return result;	
@@ -273,7 +273,7 @@ public class SimpleJSON
 		HashMap<Integer, String> result = new HashMap<>();
 		for (Integer idx = 0; idx < num_items; idx++)
 		{
-			result.put(idx, SimpleJSON.trimQuotationMasks(str_arr[idx].trim()));
+			result.put(idx, SimpleJSON.trimQuotationMarks(str_arr[idx].trim()));
 		}
 		return result;	
 	}

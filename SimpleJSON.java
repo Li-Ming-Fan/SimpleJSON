@@ -186,7 +186,7 @@ public class SimpleJSON
 	//
 	
 	// display
-	public static void diaplay(HashMap<String, String> dict_map)
+	public static void display(HashMap<String, String> dict_map)
 	{
 		for (String key : dict_map.keySet())
 		{
@@ -209,8 +209,7 @@ public class SimpleJSON
 		HashMap<String, String> replacement = new HashMap<>();
 		String str_replaced =  SimpleJSON.replaceOuterItems(str, outer_pairs, replacement);
 		
-		HashMap<String, String> result = new HashMap<>();
-		result = SimpleJSON.parseDictNotNested(str_replaced);
+		HashMap<String, String> result = SimpleJSON.parseDictNotNested(str_replaced);
 		result = SimpleJSON.replaceDictRawParsed(result, replacement);
 
 		return result;
@@ -227,8 +226,7 @@ public class SimpleJSON
 		HashMap<String, String> replacement = new HashMap<>();
 		String str_replaced =  SimpleJSON.replaceOuterItems(str, outer_pairs, replacement);
 		
-		HashMap<Integer, String> result = new HashMap<>();
-		result = SimpleJSON.parseListNotNested(str_replaced);
+		HashMap<Integer, String> result = SimpleJSON.parseListNotNested(str_replaced);
 		result = SimpleJSON.replaceListRawParsed(result, replacement);
 
 		return result;
@@ -241,6 +239,9 @@ public class SimpleJSON
 	// dict, not nested, basic type elements: int, float, str, must be trimmed
 	public static HashMap<String, String> parseDictNotNested(String str_not_nested)
 	{
+		if (str_not_nested.equals("null")) return null;
+		HashMap<String, String> result = new HashMap<>();
+		//
 		// replace the root "{" and "}"
 		StringBuilder sb = new StringBuilder(str_not_nested);
 		sb.setCharAt(0, ' ');
@@ -248,7 +249,6 @@ public class SimpleJSON
 		// split
 		String [] str_arr = sb.toString().split(",");
 		// parse
-		HashMap<String, String> result = new HashMap<>();
 		for (String item : str_arr)
 		{
 			String [] item_kv = item.split(":");
@@ -262,6 +262,9 @@ public class SimpleJSON
 	// list, not nested, basic type elements: int, float, str, must be trimmed
 	public static HashMap<Integer, String> parseListNotNested(String str_not_nested)
 	{
+		if (str_not_nested.equals("null")) return null;
+		HashMap<Integer, String> result = new HashMap<>();
+		//
 		// replace the root "[" and "]"
 		StringBuilder sb = new StringBuilder(str_not_nested);
 		sb.setCharAt(0, ' ');
@@ -270,7 +273,6 @@ public class SimpleJSON
 		String [] str_arr = sb.toString().split(",");
 		Integer num_items = str_arr.length;
 		// parse
-		HashMap<Integer, String> result = new HashMap<>();
 		for (Integer idx = 0; idx < num_items; idx++)
 		{
 			result.put(idx, SimpleJSON.trimQuotationMarks(str_arr[idx].trim()));
@@ -467,7 +469,7 @@ public class SimpleJSON
 		dict_test.put("sub_dict", "{\"a\": -1, \"b\": -2.0, \"c\": \"relu\"}");
 		
 		// display
-		SimpleJSON.diaplay(dict_test);
+		SimpleJSON.display(dict_test);
 		System.out.println("");
 		
 		// dump to str
@@ -484,7 +486,7 @@ public class SimpleJSON
 		HashMap<String, String> dict_load = SimpleJSON.loadFromFile(filepath);
 		System.out.println("loaded");
 		
-		SimpleJSON.diaplay(dict_load);
+		SimpleJSON.display(dict_load);
 		System.out.println("");
 		
 		// parse sub_dict
@@ -492,7 +494,7 @@ public class SimpleJSON
 		System.out.println(sub_dict_str);
 		
 		HashMap<String, String> sub_dict = SimpleJSON.parseDictAsStringToString(sub_dict_str);
-		SimpleJSON.diaplay(sub_dict);
+		SimpleJSON.display(sub_dict);
 		System.out.println("");
 		
 		// parse sub_list

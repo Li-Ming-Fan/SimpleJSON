@@ -39,6 +39,18 @@ import java.util.Stack;
 
 public class SimpleJSON
 {
+	// hard str
+	public static String getWrappedHardString(String str)
+	{
+		str = str.replace("\\\"", "\"");
+		str = str.replace("\"", "\\\"");
+		//
+		StringBuilder sb = new StringBuilder("\"");
+		sb.append(str);
+		sb.append("\"");
+		return sb.toString();
+	}
+	//	
 	// transform, dump
 	public static String trimQuotationMarks(String str)
 	{
@@ -53,7 +65,11 @@ public class SimpleJSON
 	}
 	public static String wrapWithQuotationMarks(String str)
 	{
-		if (str.matches("^[-0-9][0-9.]*"))   // int, float
+		if (str.startsWith("\""))    // hard str
+		{
+			return str;
+		}
+		else if (str.matches("^[-0-9][0-9.]*"))   // int, float
 		{
 			return str;
 		}
@@ -67,12 +83,11 @@ public class SimpleJSON
 		}
 		else
 		{
-			StringBuilder sb = new StringBuilder("\"");
-			sb.append(str);
-			sb.append("\"");
-			return sb.toString();
+			return getWrappedHardString(str);
 		}
 	}
+	//
+	
 	//
 	public static String dumpToString(HashMap<String, String> dict, Integer indent)
 	{

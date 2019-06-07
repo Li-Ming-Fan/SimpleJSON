@@ -8,6 +8,7 @@ Simple JSON parser, loader and saver, JAVA
 * loadFromFile()
 * parseDictAsStringToString()
 * parseListAsIntegerToString()
+* display()
 * 
 * getWrappedHardString()
 *  

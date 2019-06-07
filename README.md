@@ -3,6 +3,16 @@ Simple JSON parser, loader and saver, JAVA
 
 ## Usage
 
+* dumpToString()
+* dumpToFile()
+* loadFromFile()
+* parseDictAsStringToString()
+* parseListAsIntegerToString()
+* 
+* getWrappedHardString()
+*  
+
+
 ```
 // test
 public static void test()

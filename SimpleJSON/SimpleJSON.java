@@ -36,7 +36,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
-
+/*
+ * dumpToString()
+ * dumpToFile()
+ * loadFromFile()
+ * parseDictAsStringToString()
+ * parseListAsIntegerToString()
+ * 
+ * getWrappedHardString()
+ *  
+ */
 public class SimpleJSON
 {
 	// hard str
@@ -51,7 +60,7 @@ public class SimpleJSON
 		return sb.toString();
 	}
 	//	
-	// transform, dump
+	// transform
 	public static String trimQuotationMarks(String str)
 	{
 		if (str.startsWith("\""))
@@ -88,7 +97,7 @@ public class SimpleJSON
 	}
 	//
 	
-	//
+	// dump
 	public static String dumpToString(HashMap<String, String> dict, Integer indent)
 	{
 		String indent_str = "";
@@ -172,7 +181,6 @@ public class SimpleJSON
 
 	}
 	//
-	
 	// load json file
 	public static HashMap<String, String> loadFromFile(String filepath)
 	{
@@ -199,7 +207,6 @@ public class SimpleJSON
 		return dict_load;		
 	}
 	//
-	
 	// display
 	public static void display(HashMap<String, String> dict_map)
 	{
@@ -210,8 +217,6 @@ public class SimpleJSON
 			System.out.println(key_wrapped + ": " + value_wrapped);
 		}
 	}
-	//
-	
 	//
 	// dict, could be nested
 	public static HashMap<String, String> parseDictAsStringToString(String str)
@@ -266,9 +271,10 @@ public class SimpleJSON
 		// parse
 		for (String item : str_arr)
 		{
-			String [] item_kv = item.split(":");
-			String key = SimpleJSON.trimQuotationMarks(item_kv[0].trim());
-			String value = SimpleJSON.trimQuotationMarks(item_kv[1].trim());
+			int posi = item.indexOf(':');
+			String key = SimpleJSON.trimQuotationMarks(item.substring(0, posi).trim());
+			String value = SimpleJSON.trimQuotationMarks(item.substring(posi+1).trim());
+			//
 			result.put(key, value);
 		}
 		return result;	

@@ -42,6 +42,7 @@ import java.util.Stack;
  * loadFromFile()
  * parseDictAsStringToString()
  * parseListAsIntegerToString()
+ * display()
  * 
  * getWrappedHardString()
  *  
@@ -352,7 +353,7 @@ public class SimpleJSON
 		positions.addAll(posi_type.keySet());	
 		Integer num_posi = positions.size();
 		
-		Collections.sort(positions); //默认排序(从小到大)    // Collections.reverse(list_int_str_basic);//倒叙(从大到小)
+		Collections.sort(positions); //榛樿鎺掑簭(浠庡皬鍒板ぇ)    // Collections.reverse(list_int_str_basic);//鍊掑彊(浠庡ぇ鍒板皬)
 		
 		HashMap<Integer, Integer> result_pairs = new HashMap<>();
 		
@@ -389,7 +390,7 @@ public class SimpleJSON
 		posi_left_all.addAll(outer_pairs.keySet());
 		Integer num_pairs = posi_left_all.size();
 		
-		Collections.sort(posi_left_all);  // Ĭ������(��С����)    // Collections.reverse(list_int_str_basic);  // ������(�Ӵ�С)
+		Collections.sort(posi_left_all);  // 默认排序(从小到大)    // Collections.reverse(list_int_str_basic);  // 倒排序(从大到小)
 		
 		for (int idx = 0; idx < num_pairs; idx++)
 		{

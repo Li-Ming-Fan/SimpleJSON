@@ -267,8 +267,11 @@ public class SimpleJSON
 		StringBuilder sb = new StringBuilder(str_not_nested);
 		sb.setCharAt(0, ' ');
 		sb.setCharAt(str_not_nested.length() - 1, ' ');
+		// trim
+		String str_sb = sb.toString().trim();
+		if (str_sb.length() == 0) return result;
 		// split
-		String [] str_arr = sb.toString().split(",");
+		String [] str_arr = str_sb.split(",");
 		// parse
 		for (String item : str_arr)
 		{
@@ -291,10 +294,13 @@ public class SimpleJSON
 		StringBuilder sb = new StringBuilder(str_not_nested);
 		sb.setCharAt(0, ' ');
 		sb.setCharAt(str_not_nested.length() - 1, ' ');
+		// trim
+		String str_sb = sb.toString().trim();
+		if (str_sb.length() == 0) return result;
 		// split
-		String [] str_arr = sb.toString().split(",");
-		Integer num_items = str_arr.length;
+		String [] str_arr = str_sb.split(",");
 		// parse
+		Integer num_items = str_arr.length;
 		for (Integer idx = 0; idx < num_items; idx++)
 		{
 			result.put(idx, SimpleJSON.trimQuotationMarks(str_arr[idx].trim()));
@@ -353,7 +359,7 @@ public class SimpleJSON
 		positions.addAll(posi_type.keySet());	
 		Integer num_posi = positions.size();
 		
-		Collections.sort(positions); //榛樿鎺掑簭(浠庡皬鍒板ぇ)    // Collections.reverse(list_int_str_basic);//鍊掑彊(浠庡ぇ鍒板皬)
+		Collections.sort(positions); //默认排序(从小到大)    // Collections.reverse(list_int_str_basic);//倒叙(从大到小)
 		
 		HashMap<Integer, Integer> result_pairs = new HashMap<>();
 		
@@ -390,7 +396,7 @@ public class SimpleJSON
 		posi_left_all.addAll(outer_pairs.keySet());
 		Integer num_pairs = posi_left_all.size();
 		
-		Collections.sort(posi_left_all);  // 默认排序(从小到大)    // Collections.reverse(list_int_str_basic);  // 倒排序(从大到小)
+		Collections.sort(posi_left_all);  // Ĭ������(��С����)    // Collections.reverse(list_int_str_basic);  // ������(�Ӵ�С)
 		
 		for (int idx = 0; idx < num_pairs; idx++)
 		{

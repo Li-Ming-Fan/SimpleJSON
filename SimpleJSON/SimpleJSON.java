@@ -31,6 +31,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -218,6 +219,63 @@ public class SimpleJSON
 			System.out.println(key_wrapped + ": " + value_wrapped);
 		}
 	}
+	//
+	
+	// write lines to file
+	public static void writeLinesToFile(Collection<String> lines, String filepath)
+	{
+		File file=new File(filepath);
+		if (file.exists())
+		{
+			file.delete();
+		}
+		try
+		{
+			file.createNewFile();
+		}
+		catch (IOException ioe) {  }
+		//
+		try
+		{
+			BufferedWriter bw=new BufferedWriter(new FileWriter(filepath));
+			//
+			for (String line : lines)
+			{
+				bw.write(line);
+				bw.newLine();
+				bw.flush();
+			}
+			bw.close();	
+		}
+		catch (IOException ioe)
+		{	}
+	}
+	//
+	// load lines from file
+	public static List<String> loadLinesFromFile(String filepath)
+	{
+		List<String> result = new ArrayList<>();
+		//
+		try
+		{
+			BufferedReader br=new BufferedReader(new FileReader(filepath));
+			//
+			String line = br.readLine();
+			while (line != null)
+			{
+				result.add(line.trim());
+				line = br.readLine();
+			}
+			//
+			br.close();	
+		}
+		catch (IOException ioe)
+		{ }
+		//
+		return result;		
+	}
+	//
+	
 	//
 	// dict, could be nested
 	public static HashMap<String, String> parseDictAsStringToString(String str)
